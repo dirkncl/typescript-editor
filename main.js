@@ -119,6 +119,7 @@ async function main() {
 
     target: monaco.languages.typescript.ScriptTarget.ES2017,
     jsx: monaco.languages.typescript.JsxEmit.None,
+    module: monaco.languages.typescript.ModuleKind.None
   };
 
   const urlDefaults = Object.entries(defaultCompilerOptions).reduce(
@@ -320,6 +321,14 @@ async function main() {
         "JSX",
         "jsx",
       )}
+      <br />
+      ${createSelect(
+        monaco.languages.typescript.ModuleKind,
+        "monaco.languages.typescript.ModuleKind",
+        "Module",
+        "module",
+      )}
+      
     <ul style="margin-top: 1em;">
     ${Object.entries(compilerOptions)
       .filter(([_, value]) => typeof value === "boolean")
@@ -441,7 +450,7 @@ async function main() {
         [name]: value,
       });
 
-      console.log("Updaring compiler options to", compilerOptions);
+      console.log("Updating compiler options to", compilerOptions);
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
         compilerOptions,
       );
