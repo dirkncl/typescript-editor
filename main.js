@@ -47,7 +47,6 @@ const LibManager = {
     }
 
     UI.toggleSpinner(true);
-    //const res = await fetch(url);
     const res = await get(url);
     if (res.status === 404) {
       console.log(
@@ -250,7 +249,6 @@ async function main() {
     fetchTooltips: async function() {
       try {
         this.toggleSpinner(true);
-        //const res = await fetch(`${window.CONFIG.baseUrl}schema/tsconfig.json`);
         const res = await get(`${window.CONFIG.baseUrl}schema/tsconfig.json`);
         const json = await JSON.parse(res);
         this.toggleSpinner(false);
