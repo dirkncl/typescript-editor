@@ -114,6 +114,9 @@ async function main() {
     experimentalDecorators: false,
     emitDecoratorMetadata: false,
 
+    sourceMap: false,
+    inlineSourceMap: false,
+
     target: monaco.languages.typescript.ScriptTarget.ES2017,
     jsx: monaco.languages.typescript.JsxEmit.None,
   };
