@@ -7,8 +7,8 @@ if (!version) {
 }
 
 self.MonacoEnvironment = {
-  baseUrl: `https://unpkg.com/monaco-editor@${version}/min`,
+  baseUrl: `https://cdn.jsdelivr.net/npm/monaco-editor@${version}/min`,
 };
 importScripts(
-  `https://unpkg.com/monaco-editor@${version}/min/vs/base/worker/workerMain.js`,
+  `https://cdn.jsdelivr.net/npm/monaco-editor@${version}/min/vs/base/worker/workerMain.js`,
 );

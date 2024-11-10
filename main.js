@@ -2,7 +2,7 @@ var inputFileName = null;
 const LibManager = {
   libs: {},
 
-  coreLibPath: `https://unpkg.com/typescript@${window.CONFIG.TSVersion}/lib/`,
+  coreLibPath: `https://cdn.jsdelivr.net/npm/typescript@${window.CONFIG.TSVersion}/lib/`,
 
   getReferencePaths(input) {
     const rx = /<reference path="([^"]+)"\s\/>/;
@@ -49,9 +49,7 @@ const LibManager = {
     UI.toggleSpinner(true);
     const res = await get(url);
     if (res.status === 404) {
-      console.log(
-        `Check https://unpkg.com/typescript@${window.CONFIG.TSVersion}/lib/`,
-      );
+      console.log(`Check https://cdn.jsdelivr.net/npm/typescript@${window.CONFIG.TSVersion}/lib/`);
     }
     const rawText = await res
 
@@ -107,7 +105,7 @@ async function main() {
     noUnusedParameters: false,
 
     esModuleInterop: false,
-    preserveConstEnums: false,
+    preserveConstEnums: true,
     removeComments: false,
     skipLibCheck: false,
 
@@ -117,9 +115,9 @@ async function main() {
     sourceMap: false,
     inlineSourceMap: false,
 
-    target: monaco.languages.typescript.ScriptTarget.ES2017,
+    target: monaco.languages.typescript.ScriptTarget.ESNext,
     jsx: monaco.languages.typescript.JsxEmit.None,
-    module: monaco.languages.typescript.ModuleKind.None
+    module: monaco.languages.typescript.ModuleKind.ESNext
   };
 
   const urlDefaults = Object.entries(defaultCompilerOptions).reduce(
@@ -245,6 +243,10 @@ async function main() {
           if(fileName.endsWith(".ts")){
             fn = fileName.replace(".ts",".js")
           }
+          if(fileName.endsWith(".tsx")){
+            fn = fileName.replace(".tsx",".jsx")
+          }
+
           UI.writeFile(fn, State.outputModel.getValue())
         }
       }
@@ -618,14 +620,20 @@ console.log(message);
   function prettier() {
     const PRETTIER_VERSION = "2.5.1";
   
+    //require([
+    //  `https://unpkg.com/prettier@${PRETTIER_VERSION}/standalone.js`,
+    //  `https://unpkg.com/prettier@${PRETTIER_VERSION}/parser-typescript.js`,
+    //], function(prettier, { parsers }) {
+    //  const cursorOffset = State.inputModel.getOffsetAt(
+    //    inputEditor.getPosition(),
+    //  );
     require([
-      `https://unpkg.com/prettier@${PRETTIER_VERSION}/standalone.js`,
-      `https://unpkg.com/prettier@${PRETTIER_VERSION}/parser-typescript.js`,
+      `https://cdn.jsdelivr.net/npm/prettier@${PRETTIER_VERSION}/standalone.js`,
+      `https://cdn.jsdelivr.net/npm/prettier@${PRETTIER_VERSION}/parser-typescript.js`,
     ], function(prettier, { parsers }) {
       const cursorOffset = State.inputModel.getOffsetAt(
         inputEditor.getPosition(),
       );
-  
       const formatResult = prettier.formatWithCursor(
         State.inputModel.getValue(),
         {
